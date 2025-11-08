@@ -1,0 +1,25 @@
+{
+  "name": "rss-clustering",
+  "version": "1.0.0",
+  "description": "RSS feed article clustering demo",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/index.ts",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.6.0",
+    "natural": "^6.10.0",
+    "node-kmeans": "^1.1.9",
+    "rss-parser": "^3.13.0"
+  },
+  "devDependencies": {
+    "@types/natural": "^5.1.5",
+    "@types/node": "^20.9.0",
+    "prisma": "^5.6.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2",
+    "vitest": "^4.0.8"
+  }
+}

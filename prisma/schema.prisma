@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Feed {
+  id        Int       @id @default(autoincrement())
+  url       String    @unique
+  title     String?
+  articles  Article[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Article {
+  id         Int       @id @default(autoincrement())
+  title      String
+  content    String
+  link       String    @unique
+  feedId     Int
+  feed       Feed      @relation(fields: [feedId], references: [id])
+  clusterId  Int?
+  cluster    Cluster?  @relation(fields: [clusterId], references: [id])
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Cluster {
+  id          Int       @id @default(autoincrement())
+  keywords    String    // Store top keywords as JSON string
+  articles    Article[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
