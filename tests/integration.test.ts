@@ -26,14 +26,40 @@ describe('Article Clustering Integration', () => {
       '3': 'Travel & Tips'
     });
 
-    // And: Verify we can get titles for each cluster
     const getTitlesForCluster = (clusterId: number) => 
       mixedArticles.filter((_, i) => clusterLabels[i] === clusterId).map(a => a.title);
     
-    // Verify each cluster has some articles
-    for (let i = 0; i < 4; i++) {
-      expect(getTitlesForCluster(i).length).toBeGreaterThan(0);
-    }
+    const actual = Object.keys(clusterNames).map(key => getTitlesForCluster(parseInt(key)));
+    expect(actual).toMatchInlineSnapshot(`
+      [
+        [
+          "Tech news",
+          "Phone review",
+          "Tech innovation",
+          "Mobile news",
+          "Tech analysis",
+          "Sport update",
+          "NBA news",
+          "Sports coverage",
+          "Basketball update",
+          "NBA analysis",
+          "Political news",
+          "Government update",
+          "Policy analysis",
+          "Politics today",
+          "Capitol news",
+        ],
+        [
+          "Weather report",
+        ],
+        [
+          "Recipe blog",
+        ],
+        [
+          "Travel tips",
+        ],
+      ]
+    `)
   });
 
   it('should cluster single-topic articles with high cohesion', async () => {
