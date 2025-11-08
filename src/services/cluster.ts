@@ -114,3 +114,70 @@ export function clusterVectors(
 }
 
 export default clusterVectors;
+
+interface Article {
+  id: number;
+  title: string;
+  content: string;
+}
+
+/**
+ * Generates human-readable labels for clusters based on common terms in article titles.
+ * @param articles Array of articles with id, title, and content
+ * @param clusterLabels Array of cluster labels corresponding to each article
+ * @returns Object mapping cluster IDs to descriptive labels
+ */
+export function labelClusters(articles: Article[], clusterLabels: number[]): { [key: string]: string } {
+  const labels: { [key: string]: string } = {};
+  
+  // Group articles by cluster
+  const clusters = new Map<number, Article[]>();
+  articles.forEach((article, index) => {
+    const clusterId = clusterLabels[index];
+    if (clusterId !== -1) { // Skip noise points
+      if (!clusters.has(clusterId)) {
+        clusters.set(clusterId, []);
+      }
+      clusters.get(clusterId)!.push(article);
+    }
+  });
+
+  // Process each cluster to generate labels
+  for (const [clusterId, clusterArticles] of clusters) {
+    // Extract words from titles, convert to lowercase
+    const words = clusterArticles
+      .flatMap(article => article.title.toLowerCase().split(/\W+/))
+      .filter(word => word.length > 2) // Filter out short words
+      .filter(word => !commonStopWords.includes(word)); // Filter out stop words
+
+    // Count word frequencies
+    const wordFreq = new Map<string, number>();
+    words.forEach(word => {
+      wordFreq.set(word, (wordFreq.get(word) || 0) + 1);
+    });
+
+    // Sort words by frequency and get top 2 most common words
+    const topWords = Array.from(wordFreq.entries())
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 2)
+      .map(([word]) => word);
+
+    // Generate label
+    labels[clusterId.toString()] = topWords.length > 0 
+      ? topWords.join(' & ').replace(/\b\w/g, c => c.toUpperCase()) // Capitalize first letter of each word
+      : `Cluster ${clusterId}`; // Fallback label if no common words found
+  }
+
+  return labels;
+}
+
+// Common stop words to filter out
+const commonStopWords = [
+  'the', 'and', 'for', 'in', 'on', 'at', 'to', 'of', 'with', 'by',
+  'from', 'up', 'about', 'into', 'over', 'after', 'latest', 'new',
+  'a', 'an', 'this', 'that', 'these', 'those', 'some', 'all', 'any',
+  'each', 'every', 'who', 'which', 'what', 'whose', 'whom', 'when',
+  'where', 'why', 'how', 'are', 'was', 'were', 'been', 'being', 'have',
+  'has', 'had', 'does', 'did', 'doing', 'would', 'should', 'could',
+  'might', 'must', 'will', 'shall'
+];
