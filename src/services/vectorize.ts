@@ -4,7 +4,7 @@ import { VectorizedArticle } from '../types';
 
 const TfIdf = natural.TfIdf;
 
-export class TextProcessor {
+export class Vectorize {
   private tfidf: typeof natural.TfIdf;
   private terms: Set<string>;
   private termsList: string[];

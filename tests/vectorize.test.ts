@@ -1,12 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { TextProcessor } from '../src/services/textProcessorService';
+import { Vectorize } from '../src/services/vectorize';
 import { mixedArticles, techOnlyArticles } from './mocks';
 
 type ArticleLike = { id: number; title: string; content: string };
 
 describe('TextProcessor.vectorizeArticles', () => {
   it('produces deterministic TF-IDF vectors (snapshots) and correct shape for mocks', () => {
-    const tp = new TextProcessor();
+    const tp = new Vectorize();
 
     const vecs = tp.vectorizeArticles(techOnlyArticles as ArticleLike[]);
 
@@ -24,7 +24,7 @@ describe('TextProcessor.vectorizeArticles', () => {
   });
 
   it('has unique-word nonzero entries only in the document that contains them', () => {
-    const tp = new TextProcessor();
+    const tp = new Vectorize();
     const articles = mixedArticles as ArticleLike[];
     const vecs = tp.vectorizeArticles(articles);
     const terms = tp.getTerms();
@@ -47,7 +47,7 @@ describe('TextProcessor.vectorizeArticles', () => {
   });
 
   it('gives larger weight to repeated words within a document (controlled example)', () => {
-    const tp = new TextProcessor();
+    const tp = new Vectorize();
 
     const articles: ArticleLike[] = [
       { id: 1, title: 'dog dog dog', content: 'dog dog' },
