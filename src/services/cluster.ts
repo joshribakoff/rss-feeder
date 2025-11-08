@@ -115,11 +115,7 @@ export function clusterVectors(
 
 export default clusterVectors;
 
-interface Article {
-  id: number;
-  title: string;
-  content: string;
-}
+import { Article } from '@prisma/client';
 
 /**
  * Generates human-readable labels for clusters based on common terms in article titles.

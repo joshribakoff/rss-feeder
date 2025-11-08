@@ -31,7 +31,7 @@ model Article {
 
 model Cluster {
   id          Int       @id @default(autoincrement())
-  keywords    String    // Store top keywords as JSON string
+  keywords    String    @unique  // Store top keywords as JSON string
   articles    Article[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt

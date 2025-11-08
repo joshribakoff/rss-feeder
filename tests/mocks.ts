@@ -1,4 +1,7 @@
-export const mixedArticles = [
+import { type Article } from '@prisma/client';
+
+// Mock articles with partial Prisma schema (only fields needed for tests)
+export const mixedArticles: Partial<Article>[] = [
   // Tech cluster
   {
     id: 1,
@@ -95,7 +98,7 @@ export const mixedArticles = [
   }
 ];
 
-export const techOnlyArticles = [
+export const techOnlyArticles: Partial<Article>[] = [
   {
     id: 1,
     title: 'Tech news 1',

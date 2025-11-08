@@ -2,7 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { Vectorize } from '../src/services/vectorize';
 import { mixedArticles, techOnlyArticles } from './mocks';
 
-type ArticleLike = { id: number; title: string; content: string };
+import type { Article } from '@prisma/client';
+import type { ArticleLike } from '../src/types';
 
 describe('TextProcessor.vectorizeArticles', () => {
   it('produces deterministic TF-IDF vectors (snapshots) and correct shape for mocks', () => {
