@@ -22,8 +22,25 @@ export class Vectorize {
 
   private addDocuments(articles: Array<Article | ArticleLike>) {
     articles.forEach(article => {
-      this.tfidf.addDocument(`${article.title} ${article.content}`);
+      // Extract domain and path from URL for additional features
+      const urlTokens = article.link ? this.extractUrlTokens(article.link) : '';
+      this.tfidf.addDocument(`${article.title} ${article.content} ${urlTokens}`);
     });
+  }
+
+  private extractUrlTokens(url: string): string {
+    try {
+      const urlObj = new URL(url);
+      // Extract root domain (e.g., "www.github.com" -> "github")
+      const hostParts = urlObj.hostname.split('.');
+      // Get the main domain name (second-to-last part for most domains)
+      const rootDomain = hostParts.length >= 2
+        ? hostParts[hostParts.length - 2]
+        : hostParts[0];
+      return rootDomain;
+    } catch {
+      return '';
+    }
   }
 
   private collectTerms() {

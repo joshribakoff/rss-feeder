@@ -7,6 +7,7 @@ export interface ArticleLike {
     id: number;
     title: string;
     content: string;
+    link?: string;
 }
 
 // Note: All other types are imported from @prisma/client
