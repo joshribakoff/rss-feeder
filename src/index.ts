@@ -1,7 +1,7 @@
 import { DatabaseService } from './services/databaseService';
 import { Vectorize } from './services/vectorize';
 import { clusterVectors, labelClusters } from './services/cluster';
-import { parseFeed } from './services/rssService';
+import { fetchFeed, parseFeedContent } from './services/rssService';
 import { FeedConfig } from './types';
 import { Article } from '@prisma/client';
 
@@ -27,7 +27,8 @@ async function main() {
     const feeds = await db.getFeeds();
     
     for (const feed of feeds) {
-      const articles = await parseFeed(feed.url);
+      const content = await fetchFeed(feed.url);
+      const articles = await parseFeedContent(content);
       for (const article of articles) {
         await db.saveArticle(article, feed.id);
       }
