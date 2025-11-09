@@ -18,9 +18,61 @@ type ArticleWithFeed = Prisma.ArticleGetPayload<{
 }>;
 
 const SAMPLE_FEEDS: FeedConfig[] = [
+  // Technology & News
   { url: 'https://news.ycombinator.com/rss', title: 'Hacker News' },
   { url: 'https://www.techmeme.com/feed.xml', title: 'Techmeme' },
-  { url: 'https://techcrunch.com/feed/', title: 'TechCrunch' }
+  { url: 'https://techcrunch.com/feed/', title: 'TechCrunch' },
+  { url: 'https://www.theverge.com/rss/index.xml', title: 'The Verge' },
+  { url: 'https://arstechnica.com/feed/', title: 'Ars Technica' },
+
+  // General News
+  { url: 'https://feeds.bbci.co.uk/news/rss.xml', title: 'BBC News' },
+  { url: 'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml', title: 'New York Times' },
+  { url: 'https://www.theguardian.com/world/rss', title: 'The Guardian World' },
+  { url: 'https://www.reuters.com/rssFeed/topNews', title: 'Reuters Top News' },
+  { url: 'https://feeds.npr.org/1001/rss.xml', title: 'NPR News' },
+
+  // Economics & Finance
+  { url: 'https://www.economist.com/finance-and-economics/rss.xml', title: 'The Economist - Finance' },
+  { url: 'https://www.ft.com/?format=rss', title: 'Financial Times' },
+  { url: 'https://www.wsj.com/xml/rss/3_7085.xml', title: 'Wall Street Journal - Markets' },
+  { url: 'https://www.bloomberg.com/feed/podcast/etf-report.xml', title: 'Bloomberg Markets' },
+  { url: 'https://feeds.marketwatch.com/marketwatch/topstories/', title: 'MarketWatch' },
+
+  // Science & Research
+  { url: 'https://www.science.org/rss/news_current.xml', title: 'Science Magazine' },
+  { url: 'https://www.nature.com/nature.rss', title: 'Nature' },
+  { url: 'https://www.scientificamerican.com/feed/', title: 'Scientific American' },
+  { url: 'https://phys.org/rss-feed/', title: 'Phys.org' },
+  { url: 'https://www.sciencedaily.com/rss/all.xml', title: 'ScienceDaily' },
+  { url: 'https://www.newscientist.com/feed/home', title: 'New Scientist' },
+
+  // Mathematics & Computer Science
+  { url: 'https://terrytao.wordpress.com/feed/', title: 'Terry Tao - Math' },
+  { url: 'https://www.quantamagazine.org/feed/', title: 'Quanta Magazine' },
+  { url: 'https://mathoverflow.net/feeds', title: 'MathOverflow' },
+  { url: 'https://arxiv.org/rss/math.GT', title: 'arXiv - Geometry & Topology' },
+
+  // Sports
+  { url: 'https://www.espn.com/espn/rss/news', title: 'ESPN News' },
+  { url: 'https://www.skysports.com/rss/12040', title: 'Sky Sports' },
+  { url: 'https://www.si.com/rss/si_topstories.rss', title: 'Sports Illustrated' },
+  { url: 'https://www.cbssports.com/rss/headlines/', title: 'CBS Sports' },
+
+  // Surfing & Water Sports
+  { url: 'https://www.surfline.com/rss/surf-news', title: 'Surfline News' },
+  { url: 'https://stabmag.com/feed/', title: 'Stab Magazine - Surfing' },
+  { url: 'https://www.theinertia.com/feed/', title: 'The Inertia - Surf & Outdoors' },
+  { url: 'https://www.surfer.com/feed/', title: 'Surfer Magazine' },
+
+  // Swimming & Aquatics
+  { url: 'https://www.swimmingworldmagazine.com/news/feed/', title: 'Swimming World Magazine' },
+  { url: 'https://www.usaswimming.org/rss', title: 'USA Swimming' },
+
+  // Miscellaneous Interests
+  { url: 'https://www.atlasobscura.com/feeds/latest', title: 'Atlas Obscura' },
+  { url: 'https://longform.org/feed.rss', title: 'Longform' },
+  { url: 'https://www.reddit.com/r/science/.rss', title: 'Reddit - Science' }
 ];
 
 // ========================================
@@ -46,10 +98,17 @@ async function main() {
     const feeds = await db.getFeeds();
 
     for (const feed of feeds) {
+      try {
+        console.log(`Fetching feed: ${feed.title} (${feed.url})`);
       const content = await fetchFeed(feed.url);
       const articles = await parseFeedContent(content);
+        console.log(`Found ${articles.length} articles from ${feed.title}`);
       for (const article of articles) {
         await db.saveArticle(article, feed.id);
+        }
+      } catch (error) {
+        console.error(`Failed to fetch feed ${feed.title} (${feed.url}):`, error instanceof Error ? error.message : error);
+        // Continue processing other feeds
       }
     }
 
