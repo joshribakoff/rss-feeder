@@ -1,6 +1,10 @@
-import natural from 'natural';
-import { Article } from '@prisma/client';
+import * as natural from 'natural';
+import { Prisma } from '@prisma/client';
 import { ArticleLike } from '../types';
+
+type ArticleWithFeed = Prisma.ArticleGetPayload<{
+  include: { feed: true }
+}>;
 
 export interface VectorizedArticle {
   id: number;
@@ -20,11 +24,13 @@ export class Vectorize {
     this.termsList = [];
   }
 
-  private addDocuments(articles: Array<Article | ArticleLike>) {
+  private addDocuments(articles: Array<ArticleWithFeed | ArticleLike>) {
     articles.forEach(article => {
       // Extract domain and path from URL for additional features
       const urlTokens = article.link ? this.extractUrlTokens(article.link) : '';
-      this.tfidf.addDocument(`${article.title} ${article.content} ${urlTokens}`);
+      const feedName = article.feed?.title || '';
+      const inputText = `${feedName} ${article.title} ${article.content} ${urlTokens}`;
+      this.tfidf.addDocument(inputText);
     });
   }
 
@@ -54,7 +60,7 @@ export class Vectorize {
     this.termsList = Array.from(this.terms);
   }
 
-  public vectorizeArticles(articles: Array<Article | ArticleLike>): VectorizedArticle[] {
+  public vectorizeArticles(articles: Array<ArticleWithFeed | ArticleLike>): VectorizedArticle[] {
     this.addDocuments(articles);
     this.collectTerms();
 

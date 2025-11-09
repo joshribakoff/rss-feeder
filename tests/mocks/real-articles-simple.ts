@@ -1,276 +1,312 @@
-import { type Article } from '@prisma/client';
+import { ArticleLike } from '../../src/types';
 
-// Exported from database on 2025-11-09T00:48:07.956Z
-// Total articles: 30
-export const realArticles: Partial<Article>[] = [
+// Exported from database on 2025-11-09T15:58:54.399Z
+// Total articles: 34
+export const realArticles: ArticleLike[] = [
   {
     "id": 1,
     "title": "Ironclad – formally verified, real-time capable, Unix-like OS kernel",
     "content": "",
     "link": "https://ironclad-os.org/",
-    "feedId": 1,
-    "createdAt": "2025-11-09T00:22:44.383Z",
-    "updatedAt": "2025-11-09T00:24:33.392Z"
+    "feed": {
+      "title": "Hacker News"
+    }
   },
   {
     "id": 2,
     "title": "Marko – A declarative, HTML‑based language",
     "content": "",
     "link": "https://markojs.com/",
-    "feedId": 1,
-    "createdAt": "2025-11-09T00:22:44.393Z",
-    "updatedAt": "2025-11-09T00:24:33.401Z"
+    "feed": {
+      "title": "Hacker News"
+    }
   },
   {
     "id": 3,
     "title": "WriterdeckOS",
     "content": "",
     "link": "https://writerdeckos.com",
-    "feedId": 1,
-    "createdAt": "2025-11-09T00:22:44.396Z",
-    "updatedAt": "2025-11-09T00:24:33.405Z"
+    "feed": {
+      "title": "Hacker News"
+    }
   },
   {
     "id": 4,
     "title": "Study identifies weaknesses in how AI systems are evaluated",
     "content": "",
     "link": "https://www.oii.ox.ac.uk/news-events/study-identifies-weaknesses-in-how-ai-systems-are-evaluated/",
-    "feedId": 1,
-    "createdAt": "2025-11-09T00:22:44.399Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "Hacker News"
+    }
   },
   {
     "id": 5,
     "title": "Largest Cargo Sailboat Completes Historic First Atlantic Crossing",
     "content": "",
     "link": "https://www.marineinsight.com/shipping-news/worlds-largest-cargo-sailboat-completes-historic-first-atlantic-crossing/",
-    "feedId": 1,
-    "createdAt": "2025-11-09T00:22:44.403Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "Hacker News"
+    }
   },
   {
     "id": 6,
     "title": "What Hallucinogens Will Make You See",
     "content": "",
     "link": "https://nautil.us/what-hallucinogens-will-make-you-see-308247/",
-    "feedId": 1,
-    "createdAt": "2025-11-09T00:22:44.406Z",
-    "updatedAt": "2025-11-09T00:24:33.413Z"
+    "feed": {
+      "title": "Hacker News"
+    }
   },
   {
     "id": 7,
     "title": "Control structures in programming languages: from goto to algebraic effects",
     "content": "",
     "link": "http://xavierleroy.org/control-structures/",
-    "feedId": 1,
-    "createdAt": "2025-11-09T00:22:44.409Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "Hacker News"
+    }
   },
   {
     "id": 8,
     "title": "IP Blocking the UK Is Not Enough to Comply with the Online Safety Act",
     "content": "",
     "link": "https://prestonbyrne.com/2025/11/06/the-ofcom-files-part-2-ip-blocking-the-uk-is-not-enough-to-comply-with-the-online-safety-act/",
-    "feedId": 1,
-    "createdAt": "2025-11-09T00:22:44.412Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "Hacker News"
+    }
   },
   {
     "id": 9,
     "title": "Avería: The Average Font (2011)",
     "content": "",
     "link": "http://iotic.com/averia/",
-    "feedId": 1,
-    "createdAt": "2025-11-09T00:22:44.414Z",
-    "updatedAt": "2025-11-09T00:24:33.417Z"
+    "feed": {
+      "title": "Hacker News"
+    }
   },
   {
     "id": 10,
     "title": "Debugging BeagleBoard USB boot with a sniffer: fixing omap_loader on modern PCs",
     "content": "",
     "link": "https://www.downtowndougbrown.com/2025/11/debugging-beagleboard-usb-boot-with-a-sniffer-fixing-omap_loader-on-modern-pcs/",
-    "feedId": 1,
-    "createdAt": "2025-11-09T00:22:44.417Z",
-    "updatedAt": "2025-11-09T00:24:33.419Z"
+    "feed": {
+      "title": "Hacker News"
+    }
   },
   {
     "id": 11,
     "title": "As US schools adopt AI, a look at the growing use of AI-powered monitoring tools like GoGuardian to scan students' chatbot conversations for signs of self-harm (Janne Knodler/Bloomberg)",
     "content": "Janne Knodler / Bloomberg:\nAs US schools adopt AI, a look at the growing use of AI-powered monitoring tools like GoGuardian to scan students' chatbot conversations for signs of self-harm  —  As US educators embrace AI in the classroom, firms are selling software to flag mentions of self-harm, raising concerns over privacy and control.",
     "link": "http://www.techmeme.com/251108/p11#a251108p11",
-    "feedId": 2,
-    "createdAt": "2025-11-09T00:22:44.855Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "Techmeme"
+    }
   },
   {
     "id": 12,
     "title": "Chinese robotaxi companies' tech and rider experience are generally similar to Waymo's, as they build businesses at home while also expanding internationally (Peter Landers/Wall Street Journal)",
     "content": "Peter Landers / Wall Street Journal:\nChinese robotaxi companies' tech and rider experience are generally similar to Waymo's, as they build businesses at home while also expanding internationally  —  While U.S. companies dominate their home market, other countries look to China for driverless technology",
     "link": "http://www.techmeme.com/251108/p10#a251108p10",
-    "feedId": 2,
-    "createdAt": "2025-11-09T00:22:44.863Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "Techmeme"
+    }
   },
   {
     "id": 13,
     "title": "Several of Asia's top tycoons and conglomerates are joining the data center race as tech giants plan $240B in APAC hyperscale expansion over the next five years (Jonathan Burgos/Forbes)",
     "content": "Jonathan Burgos / Forbes:\nSeveral of Asia's top tycoons and conglomerates are joining the data center race as tech giants plan $240B in APAC hyperscale expansion over the next five years  —  The buildout of AI infrastructure in the Asia-Pacific is in high gear.  Masayoshi Son and Mukesh Ambani are among the region's wealthiest taking the lead.",
     "link": "http://www.techmeme.com/251108/p9#a251108p9",
-    "feedId": 2,
-    "createdAt": "2025-11-09T00:22:44.865Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "Techmeme"
+    }
   },
   {
     "id": 14,
     "title": "A look at Dominari Holdings and Yorkville Advisors, two little-known boutique banks that have helped finance the Trump family's flurry of crypto deals this year (George Steer/Financial Times)",
     "content": "George Steer / Financial Times:\nA look at Dominari Holdings and Yorkville Advisors, two little-known boutique banks that have helped finance the Trump family's flurry of crypto deals this year  —  Dominari Holdings and Yorkville Advisors are benefiting from close connections with Eric and Donald Trump Jr",
     "link": "http://www.techmeme.com/251108/p8#a251108p8",
-    "feedId": 2,
-    "createdAt": "2025-11-09T00:22:44.868Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "Techmeme"
+    }
   },
   {
     "id": 15,
     "title": "OpenAI, Alphabet, and Perplexity offering free access to their paid tiers in India suggests the country may be the biggest and safest bet for broad AI adoption (Mihir Sharma/Bloomberg)",
     "content": "Mihir Sharma / Bloomberg:\nOpenAI, Alphabet, and Perplexity offering free access to their paid tiers in India suggests the country may be the biggest and safest bet for broad AI adoption  —  Everyone is looking for the next big AI bet.  They're searching for energy-rich places that can run data centers cheaply …",
     "link": "http://www.techmeme.com/251108/p7#a251108p7",
-    "feedId": 2,
-    "createdAt": "2025-11-09T00:22:44.870Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "Techmeme"
+    }
   },
   {
     "id": 16,
     "title": "Apple Music's growth may be stymied by the lack of a free tier as a funnel; Midia: on a weekly level, 43% of consumers used Spotify and 16% turned to Apple (Ashley Carman/Bloomberg)",
     "content": "Ashley Carman / Bloomberg:\nApple Music's growth may be stymied by the lack of a free tier as a funnel; Midia: on a weekly level, 43% of consumers used Spotify and 16% turned to Apple  —  The service's lack of a free tier might be dimming its prospects with music consumers, particularly in emerging markets  —  Welcome back to Soundbite.",
     "link": "http://www.techmeme.com/251108/p6#a251108p6",
-    "feedId": 2,
-    "createdAt": "2025-11-09T00:22:44.873Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "Techmeme"
+    }
   },
   {
     "id": 17,
     "title": "An account of working at Cursor for 60 days: a largely in-person culture, few scheduled meetings, aggressive recruiting, heavy internal product testing, more (Brie Wolfson/Colossus)",
     "content": "Brie Wolfson / Colossus:\nAn account of working at Cursor for 60 days: a largely in-person culture, few scheduled meetings, aggressive recruiting, heavy internal product testing, more  —  Sixty days with the AI coding decacorn  —  Editor's note: This is the first installment in a series of Company Dispatches …",
     "link": "http://www.techmeme.com/251108/p5#a251108p5",
-    "feedId": 2,
-    "createdAt": "2025-11-09T00:22:44.875Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "Techmeme"
+    }
   },
   {
     "id": 18,
     "title": "In DeepSeek's first public appearance since R1's success, a senior researcher told a state-run conference he was pessimistic about AI's impact on humanity (Reuters)",
     "content": "Reuters:\nIn DeepSeek's first public appearance since R1's success, a senior researcher told a state-run conference he was pessimistic about AI's impact on humanity  —  - DeepSeek makes first public appearance in almost a year  — Company has kept low profile since global breakout in January",
     "link": "http://www.techmeme.com/251108/p4#a251108p4",
-    "feedId": 2,
-    "createdAt": "2025-11-09T00:22:44.878Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "Techmeme"
+    }
   },
   {
     "id": 19,
     "title": "CoinGecko: crypto market cap falls to $3.5T from October's $4.4T peak, on track to erase its 2025 gains; crypto ETFs had $700M of net outflow over the past week (Bloomberg)",
     "content": "Bloomberg:\nCoinGecko: crypto market cap falls to $3.5T from October's $4.4T peak, on track to erase its 2025 gains; crypto ETFs had $700M of net outflow over the past week  —  The stock market didn't crash this week.  But after a seven-month spasm of retail-borne speculation, parts of the casino started clearing out.",
     "link": "http://www.techmeme.com/251108/p3#a251108p3",
-    "feedId": 2,
-    "createdAt": "2025-11-09T00:22:44.880Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "Techmeme"
+    }
   },
   {
     "id": 20,
     "title": "Vast Data, which develops data storage tools, inks a $1.17B AI deal with CoreWeave; Vast Data, valued at $9.1B in 2023, said it reached $200M ARR by Jan. 2025 (Krystal Hu/Reuters)",
     "content": "Krystal Hu / Reuters:\nVast Data, which develops data storage tools, inks a $1.17B AI deal with CoreWeave; Vast Data, valued at $9.1B in 2023, said it reached $200M ARR by Jan. 2025  —  - CoreWeave to use Vast's data storage tools for cloud infrastructure  — Vast Data's revenue stream bolstered by new deal",
     "link": "http://www.techmeme.com/251108/p2#a251108p2",
-    "feedId": 2,
-    "createdAt": "2025-11-09T00:22:44.883Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "Techmeme"
+    }
   },
   {
     "id": 21,
     "title": "Is Wall Street losing faith in AI?",
     "content": "A rough week for tech stocks might signal a loss of investor confidence in artificial intelligence.",
     "link": "https://techcrunch.com/2025/11/08/is-wall-street-losing-faith-in-ai/",
-    "feedId": 3,
-    "createdAt": "2025-11-09T00:22:45.162Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "TechCrunch"
+    }
   },
   {
     "id": 22,
     "title": "‘Breaking Bad’ creator’s new show ‘Pluribus’ was emphatically ‘made by humans,’ not AI",
     "content": "If you watched all the way to the end of the new Apple TV show “Pluribus,” you may have noticed an unusual disclaimer in the credits: “This show was made by humans.”",
     "link": "https://techcrunch.com/2025/11/08/breaking-bad-creators-new-show-pluribus-was-emphatically-made-by-humans-not-ai/",
-    "feedId": 3,
-    "createdAt": "2025-11-09T00:22:45.170Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "TechCrunch"
+    }
   },
   {
     "id": 23,
     "title": "OpenAI asked Trump administration to expand Chips Act tax credit to cover data centers",
     "content": "A recent letter from OpenAI reveals more details about how the company is hoping the federal government can support the company's ambitious plans for data center construction.",
     "link": "https://techcrunch.com/2025/11/08/openai-asked-trump-administration-to-expand-chips-act-tax-credit-to-cover-data-centers/",
-    "feedId": 3,
-    "createdAt": "2025-11-09T00:22:45.173Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "TechCrunch"
+    }
   },
   {
     "id": 24,
     "title": "How startups can lure good talent fairly without big tech bank accounts ",
     "content": "Three industry insiders walk through how startups can set up an employee equity strategy that remains fair as a company grows.",
     "link": "https://techcrunch.com/2025/11/08/how-startups-can-lure-good-talent-fairly-without-big-tech-bank-accounts/",
-    "feedId": 3,
-    "createdAt": "2025-11-09T00:22:45.175Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "TechCrunch"
+    }
   },
   {
     "id": 25,
     "title": "Rivian gives RJ Scaringe a new pay package worth up to $5B",
     "content": "The company canceled a similar-sized award from 2021, when EV optimism was sky-high, due to the \"unlikeliness\" that the associated goals could be met.",
     "link": "https://techcrunch.com/2025/11/07/rivian-gives-rj-scaringe-a-new-pay-package-worth-up-to-5b/",
-    "feedId": 3,
-    "createdAt": "2025-11-09T00:22:45.177Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "TechCrunch"
+    }
   },
   {
     "id": 26,
     "title": "Seven more families are now suing OpenAI over ChatGPT’s role in suicides, delusions",
     "content": "In one case, 23-year-old Zane Shamblin had a conversation with ChatGPT that lasted more than four hours.",
     "link": "https://techcrunch.com/2025/11/07/seven-more-families-are-now-suing-openai-over-chatgpts-role-in-suicides-delusions/",
-    "feedId": 3,
-    "createdAt": "2025-11-09T00:22:45.180Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "TechCrunch"
+    }
   },
   {
     "id": 27,
     "title": "GoWish’s shopping and wish list app is having its biggest year yet",
     "content": "GoWish, an app for making wish lists, is having a record year, and has doubled its users.",
     "link": "https://techcrunch.com/2025/11/07/gowishs-shopping-and-wishlist-app-is-having-its-biggest-year-yet/",
-    "feedId": 3,
-    "createdAt": "2025-11-09T00:22:45.182Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "TechCrunch"
+    }
   },
   {
     "id": 28,
     "title": "Washington Post confirms data breach linked to Oracle hacks",
     "content": "The Washington Post is the latest victim of a hacking campaign by the notorious Clop ransomware gang, which relied on vulnerabilities in Oracle software used by many corporations.",
     "link": "https://techcrunch.com/2025/11/07/washington-post-confirms-data-breach-linked-to-oracle-hacks/",
-    "feedId": 3,
-    "createdAt": "2025-11-09T00:22:45.185Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "TechCrunch"
+    }
   },
   {
     "id": 29,
     "title": "I tried the Apple Crossbody Strap. It’s convenient, but the phone looks silly when the strap is removed.",
     "content": "Apple's new Crossbody Strap is a convenient way to go hands-free but the strap can rub uncomfortably at times, and the phone looks silly when the strap is removed.",
     "link": "https://techcrunch.com/2025/11/07/i-tried-the-apple-crossbody-strap-its-convenient-but-the-phone-looks-silly-when-the-strap-is-removed/",
-    "feedId": 3,
-    "createdAt": "2025-11-09T00:22:45.187Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "TechCrunch"
+    }
   },
   {
     "id": 30,
     "title": "TechCrunch Disrupt 2025 Startup Battlefield 200: Celebrating outstanding achievements",
     "content": "Among the Startup Battlefield 200 at TechCrunch Disrupt 2025 were many industry-defining companies exhibiting and pitching on the Showcase Stage.",
     "link": "https://techcrunch.com/2025/11/07/techcrunch-disrupt-2025s-startup-battlefield-200-celebrating-outstanding-achievements/",
-    "feedId": 3,
-    "createdAt": "2025-11-09T00:22:45.189Z",
-    "updatedAt": "2025-11-09T00:24:33.410Z"
+    "feed": {
+      "title": "TechCrunch"
+    }
+  },
+  {
+    "id": 31,
+    "title": "GPS 'kill' switch allows state police cruisers to go dark and disable tracking",
+    "content": "",
+    "link": "https://www.boston25news.com/news/local/25-investigates-gps-kill-switch-allows-msp-cruisers-go-dark-disable-tracking/5OKMJEUJDNAVXPLN4WKFADNPLM/",
+    "feed": {
+      "title": "Hacker News"
+    }
+  },
+  {
+    "id": 32,
+    "title": "Characterizing the American Upper Paleolithic",
+    "content": "",
+    "link": "https://www.science.org/doi/10.1126/sciadv.ady9545",
+    "feed": {
+      "title": "Hacker News"
+    }
+  },
+  {
+    "id": 33,
+    "title": "Court Judge Rules Flock Safety camera data is not exempt from PRA [WA State]",
+    "content": "",
+    "link": "https://www.goskagit.com/news/local_news/court-denies-request-that-it-find-flock-safety-camera-data-is-exempt-from-public-records/article_f1edd028-d242-479c-ada8-f2dfca73a1b1.html",
+    "feed": {
+      "title": "Hacker News"
+    }
+  },
+  {
+    "id": 34,
+    "title": "Judge says Education Dept partisan out-of-office emails violated First Amendment",
+    "content": "",
+    "link": "https://www.npr.org/2025/11/08/nx-s1-5602859/education-department-out-of-office-emails-ruling",
+    "feed": {
+      "title": "Hacker News"
+    }
   }
 ];

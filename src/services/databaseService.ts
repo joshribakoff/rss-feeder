@@ -33,7 +33,11 @@ export class DatabaseService {
   }
 
   async getAllArticles() {
-    return prisma.article.findMany();
+    return prisma.article.findMany({
+      include: {
+        feed: true
+      }
+    });
   }
 
   async createCluster(keywords: string[]) {

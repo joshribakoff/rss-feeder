@@ -50,17 +50,17 @@ async function exportDatabaseToMocks() {
       title: article.title,
       content: article.content,
       link: article.link,
-      feedId: article.feedId,
-      createdAt: article.createdAt,
-      updatedAt: article.updatedAt
+      feed: {
+        title: article.feed.title
+      }
     }));
 
     const simplifiedPath = join(__dirname, '../tests/mocks/real-articles-simple.ts');
-    const tsContent = `import { type Article } from '@prisma/client';
+    const tsContent = `import { ArticleLike } from '../../src/types';
 
 // Exported from database on ${new Date().toISOString()}
 // Total articles: ${articles.length}
-export const realArticles: Partial<Article>[] = ${JSON.stringify(simplifiedMocks, null, 2)};
+export const realArticles: ArticleLike[] = ${JSON.stringify(simplifiedMocks, null, 2)};
 `;
 
     writeFileSync(simplifiedPath, tsContent);

@@ -1,6 +1,10 @@
 import { pipeline } from '@xenova/transformers';
-import { Article } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { ArticleLike } from '../types';
+
+type ArticleWithFeed = Prisma.ArticleGetPayload<{
+  include: { feed: true }
+}>;
 
 export interface VectorizedArticle {
   id: number;
@@ -23,14 +27,15 @@ export class SemanticVectorize {
     }
   }
 
-  async vectorizeArticles(articles: Array<Article | ArticleLike>): Promise<VectorizedArticle[]> {
+  async vectorizeArticles(articles: Array<ArticleWithFeed | ArticleLike>): Promise<VectorizedArticle[]> {
     await this.initialize();
 
     const results: VectorizedArticle[] = [];
 
     for (const article of articles) {
-      // Combine title and content for embedding
-      const text = `${article.title} ${article.content || ''}`.trim();
+      // Combine feed name, title and content for embedding (same input as TF-IDF)
+      const feedName = article.feed?.title || '';
+      const text = `${feedName} ${article.title} ${article.content || ''}`.trim();
 
       // Get embedding
       const output = await this.embedder(text, { pooling: 'mean', normalize: true });

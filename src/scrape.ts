@@ -11,7 +11,11 @@ import {
 import { GridSearchTuner } from './services/clusterTuning';
 import { fetchFeed, parseFeedContent } from './services/rssService';
 import { FeedConfig } from './types';
-import { Article } from '@prisma/client';
+import { Prisma } from '@prisma/client';
+
+type ArticleWithFeed = Prisma.ArticleGetPayload<{
+  include: { feed: true }
+}>;
 
 const SAMPLE_FEEDS: FeedConfig[] = [
   { url: 'https://news.ycombinator.com/rss', title: 'Hacker News' },
@@ -50,7 +54,7 @@ async function main() {
     }
 
     console.log('Processing and clustering articles...');
-    const articles: Article[] = await db.getAllArticles();
+    const articles: ArticleWithFeed[] = await db.getAllArticles();
 
     if (articles.length === 0) {
       console.log('No articles found to cluster.');

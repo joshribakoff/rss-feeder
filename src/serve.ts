@@ -1,26 +1,87 @@
 import { DatabaseService } from "./services/databaseService";
+import { configurePassport } from "./services/authService";
+import { requireAuth } from "./middleware/authMiddleware";
+import express from 'express';
+import session from 'express-session';
+import passport from 'passport';
+import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
 
 const db = new DatabaseService();
+const app = express();
+const port = process.env['NODE_ENV'] == 'production' ? 80 : 3000;
 
+// Middleware
+app.use(cookieParser());
+app.use(express.json());
 
-const express = require('express')
-const app = express()
-const port = process.env['NODE_ENV'] == 'production' ? 80 : 3000
+// Session configuration with filesystem storage
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || 'your-secret-key-change-in-production',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === 'production',
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    },
+  })
+);
 
-// Serve static files from public directory
-app.use(express.static('public'))
+// Initialize passport
+configurePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.get('/api', async (req:any, res:any) => {
-    const clusters = (await db.getClustersWithArticles())
-    res.send(clusters)
-})
+// Auth routes
+app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
+app.get(
+  '/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req: any, res: any) => {
+    // Successful authentication, redirect to home
+    res.redirect('/');
+  }
+);
+
+app.post('/auth/logout', (req: any, res: any) => {
+  req.logout((err: any) => {
+    if (err) {
+      return res.status(500).json({ error: 'Logout failed' });
+    }
+    res.json({ success: true, message: 'Logged out successfully' });
+  });
+});
+
+app.get('/auth/user', (req: any, res: any) => {
+  if (req.isAuthenticated()) {
+    res.json({ user: req.user });
+  } else {
+    res.status(401).json({ error: 'Not authenticated' });
+  }
+});
+
+// Protected API routes
+app.get('/api', requireAuth, async (req: any, res: any) => {
+  const clusters = await db.getClustersWithArticles();
+  res.send(clusters);
+});
+
+// Serve static files from public directory (must be after API routes)
+app.use(express.static('public'));
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
-
+  console.log(`Server listening on port ${port}`);
+  if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+    console.warn('WARNING: Google OAuth credentials not configured. Please set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in .env file');
+  }
+});
 
 process.on('unhandledRejection', (err, promise) => {
-    console.log(`Error: ${err}`);
-})
+  console.log(`Error: ${err}`);
+});

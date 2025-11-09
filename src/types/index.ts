@@ -8,6 +8,9 @@ export interface ArticleLike {
     title: string;
     content: string;
     link?: string;
+    feed: {
+        title: string | null;
+    };
 }
 
 // Note: All other types are imported from @prisma/client
