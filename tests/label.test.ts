@@ -28,8 +28,8 @@ describe('labelClusters', () => {
     // The sports cluster label should contain relevant terms
     expect(labels['1'].toLowerCase()).toMatch(/sports|soccer|championship/);
     
-    // Noise points (-1) should not have a label
-    expect(labels['-1']).toBeUndefined();
+    // Noise label
+    expect(labels['-1']).toBe('Other')
   });
 
   it('handles empty clusters and single-article clusters appropriately', () => {
@@ -47,7 +47,7 @@ describe('labelClusters', () => {
     expect(typeof labels['0']).toBe('string');
     expect(labels['0'].length).toBeGreaterThan(0);
     
-    // Should not have a label for noise
-    expect(labels['-1']).toBeUndefined();
+    // noise
+    expect(labels['-1']).toBe('Other');
   });
 });

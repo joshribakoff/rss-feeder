@@ -130,12 +130,10 @@ export function labelClusters(articles: Article[], clusterLabels: number[]): { [
   const clusters = new Map<number, Article[]>();
   articles.forEach((article, index) => {
     const clusterId = clusterLabels[index];
-    if (clusterId !== -1) { // Skip noise points
-      if (!clusters.has(clusterId)) {
-        clusters.set(clusterId, []);
-      }
-      clusters.get(clusterId)!.push(article);
+    if (!clusters.has(clusterId)) {
+      clusters.set(clusterId, []);
     }
+    clusters.get(clusterId)!.push(article);
   });
 
   // Process each cluster to generate labels
@@ -158,6 +156,11 @@ export function labelClusters(articles: Article[], clusterLabels: number[]): { [
       .slice(0, 2)
       .map(([word]) => word);
 
+    if(clusterId === -1) {
+      labels[clusterId.toString()] = 'Other';
+      continue;
+    }
+    
     // Generate label
     labels[clusterId.toString()] = topWords.length > 0 
       ? topWords.join(' & ').replace(/\b\w/g, c => c.toUpperCase()) // Capitalize first letter of each word
