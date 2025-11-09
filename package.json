@@ -4,7 +4,7 @@
   "description": "RSS feed article clustering demo",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "rm -fr dist && tsc && rsync -avr prisma/ dist/prisma/ && cd dist && npm ci",
     "start": "ts-node src/index.ts",
     "test": "vitest "
   },
@@ -12,13 +12,15 @@
     "@prisma/client": "^5.6.0",
     "@xenova/transformers": "^2.17.2",
     "axios": "^1.13.2",
+    "express": "^5.1.0",
     "natural": "^6.12.0",
+    "pm2": "^6.0.13",
+    "prisma": "^5.6.0",
     "rss-parser": "^3.13.0"
   },
   "devDependencies": {
     "@types/natural": "^5.1.5",
     "@types/node": "^20.9.0",
-    "prisma": "^5.6.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2",
     "vitest": "^4.0.8"

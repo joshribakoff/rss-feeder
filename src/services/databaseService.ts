@@ -56,6 +56,12 @@ export class DatabaseService {
 
   async getClustersWithArticles() {
     return prisma.cluster.findMany({
+      // where has articles
+      where: {
+        articles: {
+          some: {}
+        }
+      },
       include: {
         articles: {
           select: {
@@ -64,8 +70,8 @@ export class DatabaseService {
               select: { title: true }
             }
           }
-        }
-      }
+        },
+      },
     });
   }
 
