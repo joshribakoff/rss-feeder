@@ -21,7 +21,7 @@ module.exports = {
         NODE_ENV: "development",
       },
       instances: 1,
-      cron_restart: "0,30 * * * *",
+      cron_restart: "47 * * * *",
       autorestart: false,
       watch: false,
       exec_mode: 'fork',
