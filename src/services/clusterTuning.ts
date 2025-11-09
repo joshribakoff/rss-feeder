@@ -4,6 +4,7 @@
 
 import { evaluateClustering, ClusterMetrics } from './clusterEvaluation';
 import { ClusteringStrategy } from './clusterStrategies';
+import { reduceDimensionality } from './dimensionalityReduction';
 
 export interface TuningResult {
   strategy: string;
@@ -20,6 +21,11 @@ export interface TuningConfig {
     numClusters?: number;
   };
   verbose?: boolean;
+  dimensionalityReduction?: {
+    enabled: boolean;
+    method?: 'pca' | 'umap';
+    targetDimensions?: number;
+  };
 }
 
 /**
@@ -50,6 +56,18 @@ export class GridSearchTuner {
   ): TuningResult[] {
     const results: TuningResult[] = [];
 
+    // Apply dimensionality reduction if configured
+    let processedVectors = vectors;
+    if (this.config.dimensionalityReduction?.enabled) {
+      const { method = 'pca', targetDimensions } = this.config.dimensionalityReduction;
+      processedVectors = reduceDimensionality(
+        vectors,
+        method,
+        targetDimensions,
+        this.config.verbose
+      );
+    }
+
     // Generate all parameter combinations
     const paramCombinations = this.generateParamCombinations(paramGrid);
 
@@ -59,8 +77,8 @@ export class GridSearchTuner {
 
     for (const params of paramCombinations) {
       try {
-        const labels = strategy.cluster(vectors, params);
-        const metrics = evaluateClustering(vectors, labels);
+        const labels = strategy.cluster(processedVectors, params);
+        const metrics = evaluateClustering(processedVectors, labels);
         const score = this.calculateScore(metrics);
 
         results.push({

@@ -12,6 +12,7 @@ import { GridSearchTuner } from './services/clusterTuning';
 import { fetchFeed, parseFeedContent } from './services/rssService';
 import { FeedConfig } from './types';
 import { Prisma } from '@prisma/client';
+import * as fs from 'fs';
 
 type ArticleWithFeed = Prisma.ArticleGetPayload<{
   include: { feed: true }
@@ -34,6 +35,20 @@ const VECTORIZATION_METHOD: 'tfidf' | 'semantic' = 'semantic';
 
 // Auto-tune clustering: dynamically find the best strategy and parameters
 const AUTO_TUNE_CLUSTERING = true;
+
+// Dimensionality reduction configuration
+// Reduces high-dimensional vectors before clustering to improve DBSCAN performance
+const DIMENSIONALITY_REDUCTION = {
+  enabled: true,
+  method: 'pca' as 'pca' | 'umap', // 'pca' for global structure, 'umap' for local structure
+  targetDimensions: 40 // PCA: 30-50, UMAP: 10-20
+};
+
+// Force specific clustering strategy (set to null to auto-tune all strategies)
+const FORCE_STRATEGY: 'kmeans' | 'hierarchical' | 'dbscan' | null = null;
+
+// Export data for visualization
+const EXPORT_FOR_VISUALIZATION = true;
 
 async function main() {
   const db = new DatabaseService();
@@ -89,7 +104,8 @@ async function main() {
           silhouette: 0.7,      // Prioritize cluster quality
           daviesBouldin: 0.2,   // Some weight on compactness
           numClusters: 0.1      // Slight preference for moderate cluster count
-        }
+        },
+        dimensionalityReduction: DIMENSIONALITY_REDUCTION
       });
 
       // Define strategies to test
@@ -112,8 +128,12 @@ async function main() {
         {
           strategy: new AdaptiveDBSCANStrategy(),
           paramGrid: {
-            epsilon: [0.5, 0.55, 0.6, 0.65, 0.7],
-            minPts: [2, 3, 4]
+            // Adjusted for reduced dimensions (PCA 40D or UMAP 15D)
+            // Lower epsilon values work better in lower dimensions
+            epsilon: DIMENSIONALITY_REDUCTION.enabled
+              ? [0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6]
+              : [0.5, 0.55, 0.6, 0.65, 0.7],
+            minPts: [2, 3, 4, 5]
           }
         }
       ];
