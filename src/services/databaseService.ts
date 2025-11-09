@@ -64,12 +64,7 @@ export class DatabaseService {
       },
       include: {
         articles: {
-          select: {
-            title: true,
-            feed: {
-              select: { title: true }
-            }
-          }
+          include: {feed: true}
         },
       },
     });
