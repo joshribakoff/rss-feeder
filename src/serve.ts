@@ -49,6 +49,17 @@ app.get(
   }
 );
 
+app.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] }));
+
+app.get(
+  '/auth/github/callback',
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  (req: any, res: any) => {
+    // Successful authentication, redirect to home
+    res.redirect('/');
+  }
+);
+
 app.post('/auth/logout', (req: any, res: any) => {
   req.logout((err: any) => {
     if (err) {
@@ -79,6 +90,9 @@ app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
   if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
     console.warn('WARNING: Google OAuth credentials not configured. Please set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in .env file');
+  }
+  if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
+    console.warn('WARNING: GitHub OAuth credentials not configured. Please set GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET in .env file');
   }
 });
 

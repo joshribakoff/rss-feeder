@@ -1,15 +1,28 @@
 import { useEffect, useState } from 'react'
 import type { Cluster } from './types'
+import { useAuth } from './AuthContext'
+import Login from './Login'
 
 function App() {
+  const { user, loading: authLoading, logout } = useAuth()
   const [clusters, setClusters] = useState<Cluster[]>([])
   const [selectedClusters, setSelectedClusters] = useState<Set<number>>(new Set())
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    if (!user) {
+      setLoading(false)
+      return
+    }
+
     fetch('/api')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Failed to fetch data')
+        }
+        return res.json()
+      })
       .then(data => {
         setClusters(data)
         setLoading(false)
@@ -18,7 +31,7 @@ function App() {
         setError(err.message)
         setLoading(false)
       })
-  }, [])
+  }, [user])
 
   const toggleCluster = (clusterId: number) => {
     const newSelected = new Set(selectedClusters)
@@ -44,8 +57,12 @@ function App() {
         article.clusterId && selectedClusters.has(article.clusterId)
       )
 
-  if (loading) {
+  if (authLoading || loading) {
     return <div className="loading">Loading...</div>
+  }
+
+  if (!user) {
+    return <Login />
   }
 
   if (error) {
@@ -54,7 +71,14 @@ function App() {
 
   return (
     <div className="container">
-      <h1>RSS Clusters</h1>
+      <div className="header">
+        <h1>RSS Clusters</h1>
+        <div className="user-info">
+          {user.picture && <img src={user.picture} alt={user.name || 'User'} className="user-avatar" />}
+          <span>{user.name || user.email}</span>
+          <button onClick={logout} className="logout-btn">Logout</button>
+        </div>
+      </div>
 
       <div className="cluster-pills">
         {clusters.map(cluster => (
