@@ -8,7 +8,7 @@ const app = express()
 const port = process.env['NODE_ENV'] == 'production' ? 80 : 3000
 
 app.get('/', async (req:any, res:any) => {
-    const clusters = (await db.getClustersWithArticles())//.filter((c:any) => c.articles.length > 0);
+    const clusters = (await db.getClustersWithArticles())
     res.send(clusters)
 })
 
