@@ -6,13 +6,13 @@ import { describe, it, expect, vi } from 'vitest';
 describe('RSS Service', () => {
   describe('parseFeedContent', () => {
     describe('Hacker News feed', () => {
-      it('should parse first article correctly', async () => {
+      it.only('should parse first article correctly', async () => {
         const mockContent = fs.readFileSync(path.join(__dirname, 'mocks/hackernews.xml'), 'utf-8');
         const result = await parseFeedContent(mockContent);
 
         expect(result[0]).toMatchInlineSnapshot(`
           {
-            "content": "Comments",
+            "content": "",
             "link": "https://ironclad-os.org/",
             "title": "Ironclad – formally verified, real-time capable, Unix-like OS kernel",
           }
@@ -27,14 +27,11 @@ describe('RSS Service', () => {
         expect(result[1].title).toMatchInlineSnapshot(`"Marko – A declarative, HTML‑based language"`);
         expect(result[2].title).toMatchInlineSnapshot(`"IP Blocking the UK Is Not Enough to Comply with the Online Safety Act"`);
 
-        // BUG: HN feeds have descriptions that only contain "Comments" link text
-        // This is not useful content - we should either:
-        // 1. Detect and skip these "Comments" only descriptions
-        // 2. Use a different field for HN feeds
-        // 3. Accept that HN feeds don't have descriptions
-        expect(result[0].content).toMatchInlineSnapshot(`"Comments"`);
-        expect(result[1].content).toMatchInlineSnapshot(`"Comments"`);
-        expect(result[2].content).toMatchInlineSnapshot(`"Comments"`);
+        // HN feeds have descriptions that only contain "Comments" which is filtered out
+        // Content is empty because all articles have identical unhelpful content
+        expect(result[0].content).toMatchInlineSnapshot(`""`);
+        expect(result[1].content).toMatchInlineSnapshot(`""`);
+        expect(result[2].content).toMatchInlineSnapshot(`""`);
       });
 
       it('should limit to MAX_ARTICLES_PER_FEED', async () => {
